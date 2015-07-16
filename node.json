@@ -1,7 +1,9 @@
 {
+  "site_name": "cap1",
   // This is the list of the recipes that are going to be cooked.
   "run_list": [
-    "recipe[apt::update]",
-    "recipe[mypg]"
+    "recipe[zapt::update]",
+    "recipe[zpostgresql]",
+    "recipe[znginx_passenger]"
   ]
 }
