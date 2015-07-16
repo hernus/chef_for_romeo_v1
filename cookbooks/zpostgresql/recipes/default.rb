@@ -32,7 +32,7 @@ end
 gem_package "pg"
 
 gem_package "json" do
-  version: "1.8.2"
+  version "1.8.2"
 end
 
 
