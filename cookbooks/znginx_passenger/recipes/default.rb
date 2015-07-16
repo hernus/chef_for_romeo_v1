@@ -28,6 +28,7 @@ ruby_block "update_nginx_config" do
     file = Chef::Util::FileEdit.new('/etc/nginx/nginx.conf')
     file.search_file_replace_line(/#\s*passenger_root/, line1)
     file.search_file_replace_line(/#\s*passenger_ruby/, line2)
+    file.write_file
   end
 end
 
