@@ -13,7 +13,12 @@ bash "update_aptitude_cache" do
   code "sudo apt-get update"
 end
 
+# bash "install_nginx" do 
+#   code "apt-get intall nginx-extras passenger"
+# end
+
 package 'nginx-extras' 
+
 package 'passenger'
 
 line1 = "passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;"
