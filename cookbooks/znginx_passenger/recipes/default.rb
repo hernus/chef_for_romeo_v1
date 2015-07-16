@@ -26,7 +26,7 @@ file "/etc/nginx/conf.d/passenger.conf" do
     passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;
     passenger_ruby /usr/local/rvm/wrappers/default/ruby;
   EOF
-  mode '0600'
+  mode '0664'
   owner 'root'
   group 'root'
 end
