@@ -1,5 +1,5 @@
 bash "apt-key" do 
-code: "sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7"
+  code "sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7"
 end
 
 file '/etc/apt/sources.list.d/passenger.list' do
@@ -10,7 +10,7 @@ file '/etc/apt/sources.list.d/passenger.list' do
 end
 
 bash "update_aptitude_cache" do
-  code: "sudo apt-get update"
+  code "sudo apt-get update"
 end
 
 package 'nginx-extras' 
