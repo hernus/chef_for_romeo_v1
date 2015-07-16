@@ -20,8 +20,8 @@ bash 'install_pg' do
   cwd "/"
   user "vagrant"
 code <<-EOH
-  sudo /usr/local/rvm/bin/rvm 2.1.6 do gem install pg --no-ri --no-rdoc
-  sudo /usr/local/rvm/bin/rvm 2.1.6 do gem install json -v '1.8.3'
+  sudo /usr/local/rvm/bin/rvm default do gem install pg --no-ri --no-rdoc
+  sudo /usr/local/rvm/bin/rvm default do gem install json -v '1.8.3'
 EOH
 end
 
