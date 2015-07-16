@@ -20,19 +20,12 @@ bash 'create_pg_user' do
    not_if 'psql -c "\du" | grep dbuser', :user => "postgres"
 end
 
-# bash 'install_pg' do
-#   cwd "/"
-#   user "vagrant"
-# code <<-EOH
-#   sudo /usr/local/rvm/bin/rvm default do gem install pg --no-ri --no-rdoc
-#   sudo /usr/local/rvm/bin/rvm default do gem install json -v '1.8.3'
-# EOH
-# end
-
-gem_package "pg"
-
-gem_package "json" do
-  version "1.8.2"
+bash 'install_pg' do
+  cwd "/"
+  user "vagrant"
+code <<-EOH
+  sudo /usr/local/rvm/bin/rvm default do gem install pg --no-ri --no-rdoc
+  sudo /usr/local/rvm/bin/rvm default do gem install json -v '1.8.3'
+EOH
+not_if '/usr/local/rvm/bin/rvm default do gem list | grep "^grep "'
 end
-
-
