@@ -22,11 +22,13 @@ package 'nginx-extras'
 package 'passenger'
 
 ruby_block "update_nginx_config" do 
-  line1 = "passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;"
-  line2 = "passenger_ruby /usr/local/rvm/wrappers/default/ruby;"
-  file = Chef::Util::FileEdit.new('/etc/nginx/nginx.conf')
-  file.search_file_replace_line(/^\s*#\s*passenger_root/, line1)
-  file.search_file_replace_line(/^\s*#\s*passenger_ruby/, line2)
+  block do 
+    line1 = "passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;"
+    line2 = "passenger_ruby /usr/local/rvm/wrappers/default/ruby;"
+    file = Chef::Util::FileEdit.new('/etc/nginx/nginx.conf')
+    file.search_file_replace_line(/^\s*#\s*passenger_root/, line1)
+    file.search_file_replace_line(/^\s*#\s*passenger_ruby/, line2)
+  end
 end
 
 file "/etc/nginx/sites-available/romeo" do
