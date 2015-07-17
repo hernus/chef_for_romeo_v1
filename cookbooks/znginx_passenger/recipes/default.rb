@@ -1,5 +1,5 @@
 
-unless File.Exists? "/etc/apt/sources.list.d/passenger.list" 
+unless File.exists? "/etc/apt/sources.list.d/passenger.list" 
   bash "apt-key" do 
     code "sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7"
   end
