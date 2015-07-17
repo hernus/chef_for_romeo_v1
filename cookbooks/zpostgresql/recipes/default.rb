@@ -24,8 +24,18 @@ bash 'install_pg' do
   cwd "/"
   user "vagrant"
 code <<-EOH
-  sudo /usr/local/rvm/bin/rvm default do gem install pg --no-ri --no-rdoc
   sudo /usr/local/rvm/bin/rvm default do gem install json -v '1.8.3'
+  sudo /usr/local/rvm/bin/rvm default do gem install pg --no-ri --no-rdoc
 EOH
-not_if '/usr/local/rvm/bin/rvm default do gem list | grep "^grep "'
+not_if '/usr/local/rvm/bin/rvm default do gem list | grep "^pg "'
+end
+
+
+bash 'create_db' do
+  cwd "/"
+  user "postgresql"
+code <<-EOH
+  sudo -u postgres createdb cap1_production -O dbuser 
+EOH
+not_if "sudo -u postgres psql -l | grep cap1_production"
 end
