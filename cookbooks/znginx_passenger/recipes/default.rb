@@ -47,8 +47,8 @@ content <<-EOH
 server {
   listen 80 default_server;
   passenger_enabled on;
-  passenger_app_env development;
-  root /sites/#{node[:site_name]}/public;
+  passenger_app_env production;
+  root /sites/#{node[:site_name]}/current/public;
 }
 EOH
    owner 'root'
