@@ -1,21 +1,21 @@
-bash "apt-key" do 
-  code "sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7"
-end
 
-file '/etc/apt/sources.list.d/passenger.list' do
-  content 'deb https://oss-binaries.phusionpassenger.com/apt/passenger trusty main'
-  mode '0600'
-  owner 'root'
-  group 'root'
-end
+unless File.Exists? "/etc/apt/sources.list.d/passenger.list" 
+  bash "apt-key" do 
+    code "sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7"
+  end
 
-bash "update_aptitude_cache" do
-  code "sudo apt-get update"
-end
+  file '/etc/apt/sources.list.d/passenger.list' do
+    content 'deb https://oss-binaries.phusionpassenger.com/apt/passenger trusty main'
+    mode '0600'
+    owner 'root'
+    group 'root'
+  end
 
-# bash "install_nginx" do 
-#   code "apt-get intall nginx-extras passenger"
-# end
+  bash "apt-get update" do
+    code "sudo apt-get update"
+    only_if ""
+  end
+end
 
 package 'nginx-extras' 
 
