@@ -13,7 +13,6 @@ unless File.exists? "/etc/apt/sources.list.d/passenger.list"
 
   bash "apt-get update" do
     code "sudo apt-get update"
-    only_if ""
   end
 end
 
