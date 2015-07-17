@@ -20,7 +20,7 @@ bash 'create_pg_user' do
    not_if 'psql -c "\du" | grep dbuser', :user => "postgres"
 end
 
-bash 'install_pg' do
+bash 'install_pg_gem' do
   cwd "/"
   user "vagrant"
 code <<-EOH
@@ -33,7 +33,7 @@ end
 
 bash 'create_db' do
   cwd "/"
-  user "postgres"
+  user "vagrant"
 code <<-EOH
   sudo -u postgres createdb cap1_production -O dbuser 
 EOH
