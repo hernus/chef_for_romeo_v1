@@ -33,7 +33,7 @@ end
 
 bash 'create_db' do
   cwd "/"
-  user "postgresql"
+  user "postgres"
 code <<-EOH
   sudo -u postgres createdb cap1_production -O dbuser 
 EOH
