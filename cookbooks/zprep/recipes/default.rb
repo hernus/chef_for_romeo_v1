@@ -20,6 +20,17 @@ user "deploy" do
   not_if "ls /home/ | grep deploy"
 end
 
+file "/etc/sudoers.d/deploy" do
+  content <<-EOH 
+  deploy ALL=(ALL) NOPASSWD:ALL
+EOH
+   owner 'root'
+   group 'root'
+   mode  '0640'
+end
+
+
+
 directory '/sites' do
   owner node[:deploy_user]
   group node[:deploy_user]
