@@ -1,9 +1,20 @@
 {
-  "site_name": "cap1",
-  // This is the list of the recipes that are going to be cooked.
+  "site_name": "system_romeo",
+  "deploy_user": "deploy",
+  "authorization": {
+    "sudo": {
+      "users": ["deploy", "vagrant", "ubuntu"],
+      "groups": ["admin", "sysadmin"],
+      "passwordless": "true"
+    }
+  },
   "run_list": [
-    "recipe[zapt::update]",
+    "recipe[zprep]",
+    "recipe[sudo]",
+    "recipe[zruby]",
     "recipe[zpostgresql]",
-    "recipe[znginx_passenger]"
+    "recipe[znginx_passenger]",
+    "recipe[zmemcached]",
+    "recipe[zgems]"
   ]
 }

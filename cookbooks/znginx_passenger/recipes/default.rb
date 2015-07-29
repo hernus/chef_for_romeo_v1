@@ -20,26 +20,22 @@ package 'nginx-extras'
 
 package 'passenger'
 
-file "/etc/nginx/conf.d/passenger.conf" do 
-  content <<-EOF
-    passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;
-    passenger_ruby /usr/local/rvm/wrappers/default/ruby;
-  EOF
-  mode '0664'
-  owner 'root'
-  group 'root'
-end
-
-# ruby_block "update_nginx_config" do 
-#   block do 
-#     line1 = "passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;"
-#     line2 = "passenger_ruby /usr/local/rvm/wrappers/default/ruby;"
-#     file = Chef::Util::FileEdit.new('/etc/nginx/nginx.conf')
-#     file.search_file_replace_line(/#\s*passenger_root/, line1)
-#     file.search_file_replace_line(/#\s*passenger_ruby/, line2)
-#     file.write_file
-#   end
+# file "/etc/nginx/conf.d/passenger.conf" do 
+#   content <<-EOF
+#     passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;
+#     passenger_ruby /usr/local/bin/ruby;
+#   EOF
+#   mode '0664'
+#   owner 'root'
+#   group 'root'
 # end
+
+template "/etc/nginx/nginx.conf" do 
+  source "nginx.conf"
+  mode "0664"
+  owner "root"
+  group "root"
+end
 
 file "/etc/nginx/sites-available/romeo" do
 content <<-EOH 
@@ -47,7 +43,8 @@ server {
   listen 80 default_server;
   passenger_enabled on;
   passenger_app_env production;
-  root /sites/#{node[:site_name]}/current/public;
+  passenger_friendly_error_pages on;
+  root /sites/system_romeo/current/public;
 }
 EOH
    owner 'root'
@@ -56,3 +53,16 @@ EOH
 end
 
 
+link "/etc/nginx/sites-enabled/default" do
+  action :delete
+end
+
+link "/etc/nginx/sites-enabled/romeo" do
+  to "/etc/nginx/sites-available/romeo"
+  owner "root"
+  mode "0666"
+end
+
+bash "reload nginx" do
+  code "nginx -s reload"
+end
